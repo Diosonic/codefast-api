@@ -36,7 +36,5 @@ public class EquipeRepository : BaseRepository, IEquipeRepository
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
     }
-
-
 }
 

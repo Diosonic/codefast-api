@@ -19,7 +19,6 @@ public class TorneioRepository : BaseRepository, ITorneioRepository
     public async Task<IEnumerable<TorneioDTO>> GetAllTorneiosAsync()
     {
         return await _context.Torneios
-            .Include(t => t.Equipes) 
             .Select(t => new TorneioDTO
             {
                 Id = t.Id,
@@ -32,11 +31,10 @@ public class TorneioRepository : BaseRepository, ITorneioRepository
             .ToListAsync();
     }
 
-
     public async Task<Torneio> GetTorneioByIdAsync(int id)
     {
         return await _context.Torneios
-            .Where(x => x.Id == id)
+            .Where(x => x.Id == id).Include(e => e.Equipes)
             .FirstOrDefaultAsync();
     }
 }
