@@ -19,6 +19,7 @@ builder.Services.
 
 builder.Services.AddScoped<IBaseRepository, BaseRepository>();
 builder.Services.AddScoped<IEquipeRepository, EquipeRepository>();
+builder.Services.AddScoped<ITorneioRepository, TorneioRepository>();
 
 
 var app = builder.Build();
