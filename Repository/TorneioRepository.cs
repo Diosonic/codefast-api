@@ -25,7 +25,10 @@ public class TorneioRepository : BaseRepository, ITorneioRepository
                 Titulo = t.Titulo,
                 Equipes = t.Equipes.Select(eq => new EquipeDTO
                 {
-                    Nome = eq.Nome
+                    Id = eq.Id,
+                    Nome = eq.Nome,
+                    IsCredenciado = eq.IsCredenciado,
+                    NomeParticipantes = eq.NomeParticipantes
                 }).ToList()
             })
             .ToListAsync();
@@ -34,7 +37,8 @@ public class TorneioRepository : BaseRepository, ITorneioRepository
     public async Task<Torneio> GetTorneioByIdAsync(int id)
     {
         return await _context.Torneios
-            .Where(x => x.Id == id).Include(e => e.Equipes)
+            .Where(x => x.Id == id)
+            .Include(e => e.Equipes)
             .FirstOrDefaultAsync();
     }
 }

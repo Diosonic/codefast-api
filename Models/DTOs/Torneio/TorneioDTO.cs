@@ -6,5 +6,5 @@ public class TorneioDTO
 {
     public int Id { get; set; }
     public string Titulo { get; set; } = string.Empty;
-    public IEnumerable<EquipeDTO> Equipes { get; set; }
+    public IEnumerable<EquipeDTO>? Equipes { get; set; }
 }

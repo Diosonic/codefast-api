@@ -250,3 +250,4 @@ C:\Users\Yurip\source\repos\Codefast\bin\Debug\net8.0\runtimes\win\lib\net7.0\Mi
 C:\Users\Yurip\source\repos\Codefast\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Users\Yurip\source\repos\Codefast\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Yurip\source\repos\Codefast\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Users\Yurip\source\repos\Codefast\obj\Debug\net8.0\Codefast.sourcelink.json

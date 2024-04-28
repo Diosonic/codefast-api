@@ -22,10 +22,10 @@ public class EquipeRepository : BaseRepository, IEquipeRepository
             .Select(e => new EquipeDTO
             {
                 Id = e.Id,
+                TituloTorneio = e.Torneio.Titulo,
                 Nome = e.Nome,
-                IsCredenciado = e.IsCredenciado,
-                IsDesclassificado = e.IsDesclassificado,
-                Pontuacao = e.Pontuacao
+                NomeParticipantes = e.NomeParticipantes,
+                IsCredenciado = e.IsCredenciado
             })
             .ToListAsync();
     }
@@ -33,7 +33,8 @@ public class EquipeRepository : BaseRepository, IEquipeRepository
     public async Task<Equipe> GetEquipeByIdAsync(int id)
     {
         return await _context.Equipes
-            .Where(x => x.Id == id)
+            .Where(e => e.Id == id)
+            .Include(e => e.ControleEliminatoria)
             .FirstOrDefaultAsync();
     }
 }

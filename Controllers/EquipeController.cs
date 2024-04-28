@@ -6,7 +6,7 @@ using Azure.Core;
 
 namespace Codefast.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class EquipeController : ControllerBase
     {
@@ -18,17 +18,17 @@ namespace Codefast.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<EquipeDTO>>> GetAll()
         {
-            var equipes = await _repository.GetAllEquipeAsync();
+            IEnumerable<EquipeDTO> equipes = await _repository.GetAllEquipeAsync();
 
             return Ok(equipes);
         }
 
-        [HttpGet("id")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Equipe>> GetById(int id)
         {
-            var equipe = await _repository.GetEquipeByIdAsync(id);
+            Equipe equipe = await _repository.GetEquipeByIdAsync(id);
 
             if (equipe == null)
                 return NotFound("Equipe não encontrada");
@@ -37,40 +37,52 @@ namespace Codefast.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(AdicionarEquipeDTO request)
+        public async Task<ActionResult<Equipe>> Post(AdicionarEquipeDTO request)
         {
             if (request == null)
                 return BadRequest("Dados inválidos");
 
-            var equipeDTO = new Equipe
+            Equipe equipe = new Equipe
             {
                 Nome = request.Nome,
                 NomeParticipantes = request.NomeParticipantes,
-                TorneioId = request.TorneioId
+                TorneioId = request.TorneioId,
             };
 
-            await _repository.AddAsync(equipeDTO);  
+            ControleEliminatoria controleEliminatoria = new ControleEliminatoria
+            {
+                StatusValidacao = "Pendente",
+                IsDesclassificado = false,
+                Pontuacao = 0,
+                Equipe = equipe
+            };
 
-            return Ok(equipeDTO);
+            equipe.ControleEliminatoria = controleEliminatoria;
+
+            await _repository.AddAsync(equipe);  
+
+            return Ok(equipe);
         }
 
-        [HttpPut("id")]
-        public async Task<IActionResult> Put(int id, AtualizarEquipeDTO request)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Equipe>> Put(int id, AtualizarEquipeDTO request)
         {
             if (request == null)
                 return BadRequest("Dados inválidos");
 
-            var equipeExistente = await _repository.GetEquipeByIdAsync(id);
+            Equipe equipeExistente = await _repository.GetEquipeByIdAsync(id);
 
             if (equipeExistente == null)
                 return NotFound("Equipe não encontrada");
 
-            equipeExistente.Nome = request.Nome;
-            equipeExistente.IsCredenciado = request.IsCredenciado;
-            equipeExistente.IsDesclassificado = request.IsDesclassificado;
-            equipeExistente.Pontuacao = request.Pontuacao;
-            equipeExistente.StatusValidacao = request.StatusValidacao;
-            equipeExistente.NomeParticipantes = request.NomeParticipantes;
+            if (request.Nome != null)
+                equipeExistente.Nome = request.Nome;
+
+            if (request.IsCredenciado.HasValue)
+                equipeExistente.IsCredenciado = request.IsCredenciado.Value;
+
+            if (request.NomeParticipantes != null)
+                equipeExistente.NomeParticipantes = request.NomeParticipantes;
 
             await _repository.UpdateAsync(equipeExistente);
 
@@ -78,9 +90,9 @@ namespace Codefast.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var equipeExistente = await _repository.GetEquipeByIdAsync(id);
+            Equipe equipeExistente = await _repository.GetEquipeByIdAsync(id);
 
             if (equipeExistente == null)
                 return NotFound("Equipe não encontrada");

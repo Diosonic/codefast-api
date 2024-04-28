@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Codefast.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TorneioController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace Codefast.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<TorneioDTO>>> GetAll()
         {
             IEnumerable<TorneioDTO> torneios = await _repository.GetAllTorneiosAsync();
 
@@ -26,8 +26,8 @@ namespace Codefast.Controllers
         }
 
 
-        [HttpGet("id")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Torneio>> GetById(int id)
         {
             Torneio torneio = await _repository.GetTorneioByIdAsync(id);
 
@@ -38,7 +38,7 @@ namespace Codefast.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(AdicionarTorneioDTO request)
+        public async Task<ActionResult<Torneio>> Post(AdicionarTorneioDTO request)
         {
             if (request == null)
                 return BadRequest("Dados inválidos");
@@ -53,8 +53,8 @@ namespace Codefast.Controllers
             return Ok(torneio);
         }
 
-        [HttpPut("id")]
-        public async Task<IActionResult> Put(int id, AtualizarTorneioDTO request)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Torneio>> Put(int id, AtualizarTorneioDTO request)
         {
             if (request == null)
                 return BadRequest("Dados inválidos");
@@ -64,7 +64,10 @@ namespace Codefast.Controllers
             if (torneioExistente == null)
                 return NotFound("Torneio não encontrado");
 
-            torneioExistente.Titulo = request.Titulo;
+            if(request.Titulo != null)
+            {
+                torneioExistente.Titulo = request.Titulo;
+            }
 
             await _repository.UpdateAsync(torneioExistente);
 
@@ -72,7 +75,7 @@ namespace Codefast.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             Torneio torneioExistente = await _repository.GetTorneioByIdAsync(id);
 

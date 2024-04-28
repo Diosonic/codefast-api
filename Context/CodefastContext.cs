@@ -12,6 +12,7 @@ public class CodefastContext : DbContext
 
     public DbSet<Equipe> Equipes {  get; set; }
     public DbSet<Torneio> Torneios { get; set; }
+    public DbSet<ControleEliminatoria> ControleEliminatorias { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
