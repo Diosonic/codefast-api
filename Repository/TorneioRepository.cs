@@ -34,6 +34,19 @@ public class TorneioRepository : BaseRepository, ITorneioRepository
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<EquipeDTO>> GetAllEquipesTorneioAsync(int id)
+    {
+        return await _context.Equipes
+                .Where(eq => eq.TorneioId == id)
+                .Select(eq => new EquipeDTO
+                {
+                    Id = eq.Id,
+                    IsCredenciado = eq.IsCredenciado,
+                    NomeParticipantes = eq.NomeParticipantes
+                })
+                .ToListAsync();
+    }
+
     public async Task<Torneio> GetTorneioByIdAsync(int id)
     {
         return await _context.Torneios

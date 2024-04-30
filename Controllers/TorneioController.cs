@@ -37,6 +37,19 @@ namespace Codefast.Controllers
             return Ok(torneio);
         }
 
+        [HttpGet("{id}/equipes")]
+        public async Task<ActionResult<IEnumerable<EquipeDTO>>> GetAllEquipesTorneio(int id)
+        {
+            IEnumerable<EquipeDTO> equipes = await _repository.GetAllEquipesTorneioAsync(id);
+
+            if(equipes == null)
+            {
+                return NotFound("Nenhuma equipe foi encontrada para esse torneio");
+            }
+
+            return Ok(equipes);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Torneio>> Post(AdicionarTorneioDTO request)
         {

@@ -2,7 +2,6 @@
 using Codefast.Repository.Interfaces;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Models;
-using Azure.Core;
 
 namespace Codefast.Controllers
 {
