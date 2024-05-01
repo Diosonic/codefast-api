@@ -53,7 +53,9 @@ namespace Codefast.Controllers
                 StatusValidacao = "Pendente",
                 IsDesclassificado = false,
                 Pontuacao = 0,
-                Equipe = equipe
+                Tempo = TimeSpan.FromHours(2),
+                Equipe = equipe,
+         
             };
 
             equipe.ControleEliminatoria = controleEliminatoria;
