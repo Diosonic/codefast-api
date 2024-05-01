@@ -18,11 +18,15 @@ namespace Codefast.Repository
         public async Task<IEnumerable<ControleEliminatoriaDTO>> GetEquipesCredenciadas(int id)
         {
             return await _context.ControleEliminatorias
-                    .Where(eq => eq.EquipeId == id && eq.Equipe.IsCredenciado)
+                    .Where(eq => eq.Equipe.TorneioId == id && eq.Equipe.IsCredenciado)
                     .Select(eq => new ControleEliminatoriaDTO
                     {
                         Id = eq.Id,
-                        Tempo = eq.Tempo
+                        Tempo = eq.Tempo,
+                        Pontuacao = eq.Pontuacao,
+                        StatusValidacao = eq.StatusValidacao,
+                        IsDesclassificado = eq.IsDesclassificado,
+                        EquipeId = eq.EquipeId,
                     })
                     .ToListAsync();
         }

@@ -50,10 +50,10 @@ namespace Codefast.Controllers
 
             ControleEliminatoria controleEliminatoria = new ControleEliminatoria
             {
-                StatusValidacao = "Pendente",
+                StatusValidacao = " ",
                 IsDesclassificado = false,
                 Pontuacao = 0,
-                Tempo = TimeSpan.FromHours(2),
+                Tempo = TimeSpan.FromHours(0),
                 Equipe = equipe,
          
             };
