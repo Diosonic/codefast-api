@@ -33,6 +33,7 @@ builder.Services.
 builder.Services.AddScoped<IBaseRepository, BaseRepository>();
 builder.Services.AddScoped<IEquipeRepository, EquipeRepository>();
 builder.Services.AddScoped<ITorneioRepository, TorneioRepository>();
+builder.Services.AddScoped<IControleEliminatoriaRepository, ControleEliminatoriaRepository>();
 
 
 var app = builder.Build();

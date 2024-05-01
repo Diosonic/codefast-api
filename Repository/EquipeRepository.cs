@@ -2,7 +2,6 @@
 using Codefast.Models;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Codefast.Repository;

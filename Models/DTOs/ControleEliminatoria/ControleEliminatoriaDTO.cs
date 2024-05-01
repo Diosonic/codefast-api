@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Codefast.Models
+namespace Codefast.Models.DTOs.ControleEliminatoria
 {
-    public class ControleEliminatoria
+    public class ControleEliminatoriaDTO
     {
         public int Id { get; set; }
         public string StatusValidacao { get; set; } = string.Empty;
@@ -11,8 +11,7 @@ namespace Codefast.Models
         public TimeSpan Tempo { get; set; }
 
         public int EquipeId { get; set; }
-        [JsonIgnore]
-        public Equipe Equipe { get; set; } = null!;
+        //[JsonIgnore]
+        //public Equipe Equipe { get; set; } = null!;
     }
 }
-
