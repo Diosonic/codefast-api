@@ -2,8 +2,6 @@ using Codefast.Context;
 using Codefast.Repository;
 using Codefast.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Text.Json.Serialization;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
