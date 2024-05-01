@@ -42,7 +42,9 @@ public class TorneioRepository : BaseRepository, ITorneioRepository
                 {
                     Id = eq.Id,
                     IsCredenciado = eq.IsCredenciado,
-                    NomeParticipantes = eq.NomeParticipantes
+                    Nome = eq.Nome,
+                    NomeParticipantes = eq.NomeParticipantes,
+                    TituloTorneio = eq.Torneio.Titulo
                 })
                 .ToListAsync();
     }
