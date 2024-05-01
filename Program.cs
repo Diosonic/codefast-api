@@ -2,8 +2,6 @@ using Codefast.Context;
 using Codefast.Repository;
 using Codefast.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Text.Json.Serialization;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -15,7 +13,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:3000" );
+                          policy.WithOrigins("http://localhost:3000")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
                       });
 });
 
