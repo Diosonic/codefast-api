@@ -26,7 +26,10 @@ namespace Codefast.Repository
                         Pontuacao = eq.Pontuacao,
                         StatusValidacao = eq.StatusValidacao,
                         IsDesclassificado = eq.IsDesclassificado,
-                        EquipeId = eq.EquipeId,
+                        Equipe = new EquipeDTO
+                        {
+                            Nome = eq.Equipe.Nome,
+                        }
                     })
                     .ToListAsync();
         }

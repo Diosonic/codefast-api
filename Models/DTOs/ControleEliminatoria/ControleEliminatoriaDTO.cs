@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Codefast.Models.DTOs.Equipe;
+using System.Text.Json.Serialization;
 
 namespace Codefast.Models.DTOs.ControleEliminatoria
 {
@@ -10,8 +11,6 @@ namespace Codefast.Models.DTOs.ControleEliminatoria
         public int Pontuacao { get; set; }
         public TimeSpan Tempo { get; set; }
 
-        public int EquipeId { get; set; }
-        //[JsonIgnore]
-        //public Equipe Equipe { get; set; } = null!;
+        public EquipeDTO Equipe { get; set; } = null!;
     }
 }
