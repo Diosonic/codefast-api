@@ -1,4 +1,5 @@
 ﻿using Codefast.Context;
+using Codefast.Models;
 using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
@@ -28,10 +29,22 @@ namespace Codefast.Repository
                         IsDesclassificado = eq.IsDesclassificado,
                         Equipe = new EquipeDTO
                         {
+                            Id = eq.EquipeId,
                             Nome = eq.Equipe.Nome,
                         }
                     })
                     .ToListAsync();
         }
+
+        public async Task<ControleEliminatoria> GetControleEliminatoriaByIdAsync(int id)
+        {
+            return await _context.ControleEliminatorias
+                .Include(c => c.Equipe)
+                .Where(e => e.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+
+
     }
 }
