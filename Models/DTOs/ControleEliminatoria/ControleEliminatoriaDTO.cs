@@ -11,6 +11,6 @@ namespace Codefast.Models.DTOs.ControleEliminatoria
         public int Pontuacao { get; set; }
         public TimeSpan Tempo { get; set; }
 
-        public EquipeDTO Equipe { get; set; } = null!;
+        public EquipeDTO Equipe { get; set; }
     }
 }

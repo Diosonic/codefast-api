@@ -1,5 +1,6 @@
 ﻿using Codefast.Models;
 using Codefast.Models.DTOs.ControleEliminatoria;
+using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,14 @@ namespace Codefast.Controllers
             _repository = repository;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<ControleEliminatoriaDTO>>> GetByidAsync(int id)
+        {
+            ControleEliminatoriaDTO equipeExistente = await _repository.GetControleEliminatoriaByIdAsync(id);
+
+            return Ok(equipeExistente);
+        }
+
         [HttpGet("{id}/equipes")]
         public async Task<ActionResult<IEnumerable<ControleEliminatoriaDTO>>> SelecionaEquipesCredenciadas(int id)
         {
@@ -24,6 +33,16 @@ namespace Codefast.Controllers
             if (equipes == null)
                 return NotFound("Nenhuma equipe foi encontrada para essa etapa eliminatória");
 
+            return Ok(equipes);
+        }
+
+        [HttpGet("{id}/equipes/validando")]
+        public async Task<ActionResult<IEnumerable<ControleEliminatoriaDTO>>> SelecionaEquipesEmValidacao(int id)
+        {
+            IEnumerable<ControleEliminatoriaDTO> equipes = await _repository.GetEquipesCredenciadasEmValidacao(id);
+
+            if (equipes == null)
+                return NotFound("Nenhuma equipe foi encontrada para essa etapa eliminatória");
 
             return Ok(equipes);
         }
@@ -33,14 +52,15 @@ namespace Codefast.Controllers
         {
             if (request == null)
                 return BadRequest("Dados inválidos");
-
-            ControleEliminatoria equipeExistente = await _repository.GetControleEliminatoriaByIdAsync(id);
+            
+            ControleEliminatoriaDTO equipeExistente = await _repository.GetControleEliminatoriaByIdAsync(id);
 
             if (equipeExistente == null)
                 return NotFound("Equipe não encontrada");
 
             if (request.StatusValidacao != null)
-                 equipeExistente.StatusValidacao = request.StatusValidacao;
+                equipeExistente.StatusValidacao = request.StatusValidacao;
+                equipeExistente.Tempo = request.Tempo;
 
             await _repository.UpdateAsync(equipeExistente);
 

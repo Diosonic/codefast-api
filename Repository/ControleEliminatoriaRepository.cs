@@ -36,11 +36,43 @@ namespace Codefast.Repository
                     .ToListAsync();
         }
 
-        public async Task<ControleEliminatoria> GetControleEliminatoriaByIdAsync(int id)
+        public async Task<IEnumerable<ControleEliminatoriaDTO>> GetEquipesCredenciadasEmValidacao(int id)
         {
             return await _context.ControleEliminatorias
-                .Include(c => c.Equipe)
+                    .Where(eq => eq.Equipe.TorneioId == id && eq.Equipe.IsCredenciado)
+                    .Select(eq => new ControleEliminatoriaDTO
+                    {
+                        Id = eq.Id,
+                        Tempo = eq.Tempo,
+                        Pontuacao = eq.Pontuacao,
+                        StatusValidacao = eq.StatusValidacao,
+                        IsDesclassificado = eq.IsDesclassificado,
+                        Equipe = new EquipeDTO
+                        {
+                            Id = eq.EquipeId,
+                            Nome = eq.Equipe.Nome,
+                        }
+                    }).Where(eq => eq.StatusValidacao == "Validando")
+                    .ToListAsync();
+        }
+
+        public async Task<ControleEliminatoriaDTO> GetControleEliminatoriaByIdAsync(int id)
+        {
+            return await _context.ControleEliminatorias
                 .Where(e => e.Id == id)
+                .Select(eq => new ControleEliminatoriaDTO
+                {
+                    Id = eq.Id,
+                    Tempo = eq.Tempo,
+                    Pontuacao = eq.Pontuacao,
+                    StatusValidacao = eq.StatusValidacao,
+                    IsDesclassificado = eq.IsDesclassificado,
+                    Equipe = new EquipeDTO
+                    {
+                        Id = eq.EquipeId,
+                        Nome = eq.Equipe.Nome,
+                    }
+                })
                 .FirstOrDefaultAsync();
         }
 
