@@ -1,5 +1,6 @@
 ﻿using Codefast.Context;
 using Codefast.Models;
+using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -36,5 +37,6 @@ public class EquipeRepository : BaseRepository, IEquipeRepository
             .Include(e => e.ControleEliminatoria)
             .FirstOrDefaultAsync();
     }
+
 }
 
