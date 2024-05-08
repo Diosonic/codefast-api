@@ -1,8 +1,11 @@
-﻿using Codefast.Models;
+﻿using Azure.Core;
+using Codefast.Models;
 using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
+using System.Collections.Generic;
 
 namespace Codefast.Controllers
 {
@@ -52,7 +55,7 @@ namespace Codefast.Controllers
         {
             if (request == null)
                 return BadRequest("Dados inválidos");
-            
+
             ControleEliminatoriaDTO equipeExistente = await _repository.GetControleEliminatoriaByIdAsync(id);
 
             if (equipeExistente == null)
@@ -66,5 +69,36 @@ namespace Codefast.Controllers
 
             return Ok(equipeExistente.StatusValidacao);
         }
+
+        [HttpPut("{idTorneio}/iniciarRodada")]
+        public async Task<ActionResult<IEnumerable<ControleEliminatoria>>> IniciarRodada(int idTorneio)
+        {
+            if (idTorneio == 0)
+                return BadRequest("Dados inválidos");
+
+            IEnumerable<ControleEliminatoria> controlesEliminatoriasAtualizados
+                = await _repository.IniciarNovaRodada(idTorneio);
+
+            if (controlesEliminatoriasAtualizados == null)
+                return NotFound("Nenhuma equipe foi encontrada");
+
+            return Ok(controlesEliminatoriasAtualizados);
+        }
+
+        [HttpPut("{idTorneio}/finalizarRodadaAtual")]
+        public async Task<ActionResult<IEnumerable<ControleEliminatoria>>> FinalizarRodadaAtual(int idTorneio)
+        {
+            if (idTorneio == 0)
+                return BadRequest("Dados inválidos");
+
+            IEnumerable<ControleEliminatoria> controlesEliminatoriasAtualizados
+                = await _repository.FinalizarRodadaAtual (idTorneio);
+
+            if (controlesEliminatoriasAtualizados == null)
+                return NotFound("Nenhuma equipe foi encontrada");
+
+            return Ok(controlesEliminatoriasAtualizados);
+        }
+
     }
 }
