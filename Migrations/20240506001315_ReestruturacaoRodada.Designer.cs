@@ -4,6 +4,7 @@ using Codefast.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Codefast.Migrations
 {
     [DbContext(typeof(CodefastContext))]
-    partial class CodefastContextModelSnapshot : ModelSnapshot
+    [Migration("20240506001315_ReestruturacaoRodada")]
+    partial class ReestruturacaoRodada
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,12 +121,7 @@ namespace Codefast.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TorneioId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TorneioId");
 
                     b.ToTable("Rodadas");
                 });
@@ -205,17 +203,6 @@ namespace Codefast.Migrations
                     b.HasOne("Codefast.Models.Torneio", "Torneio")
                         .WithMany("Equipes")
                         .HasForeignKey("TorneioId");
-
-                    b.Navigation("Torneio");
-                });
-
-            modelBuilder.Entity("Codefast.Models.Rodada", b =>
-                {
-                    b.HasOne("Codefast.Models.Torneio", "Torneio")
-                        .WithMany()
-                        .HasForeignKey("TorneioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Torneio");
                 });

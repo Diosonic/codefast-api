@@ -44,6 +44,7 @@ namespace Codefast.Controllers
             Equipe equipe = new Equipe
             {
                 Nome = request.Nome,
+                IsDesclassificado = false,
                 NomeParticipantes = request.NomeParticipantes,
                 TorneioId = request.TorneioId,
             };
@@ -51,11 +52,9 @@ namespace Codefast.Controllers
             ControleEliminatoria controleEliminatoria = new ControleEliminatoria
             {
                 StatusValidacao = " ",
-                IsDesclassificado = false,
                 Pontuacao = 0,
                 Tempo = TimeSpan.FromHours(0),
                 Equipe = equipe,
-         
             };
 
             equipe.ControleEliminatoria = controleEliminatoria;

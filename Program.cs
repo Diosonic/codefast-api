@@ -34,6 +34,9 @@ builder.Services.AddScoped<IBaseRepository, BaseRepository>();
 builder.Services.AddScoped<IEquipeRepository, EquipeRepository>();
 builder.Services.AddScoped<ITorneioRepository, TorneioRepository>();
 builder.Services.AddScoped<IControleEliminatoriaRepository, ControleEliminatoriaRepository>();
+builder.Services.AddScoped<IControleMataMataRepository, ControleMataMataRepository>();
+builder.Services.AddScoped<IRodadaRepository, RodadaRepository>();
+builder.Services.AddScoped<ISementeRodadaRepository, SementeRodadaRepository>();
 
 
 var app = builder.Build();

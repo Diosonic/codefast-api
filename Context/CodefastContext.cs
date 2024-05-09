@@ -13,6 +13,9 @@ public class CodefastContext : DbContext
     public DbSet<Equipe> Equipes {  get; set; }
     public DbSet<Torneio> Torneios { get; set; }
     public DbSet<ControleEliminatoria> ControleEliminatorias { get; set; }
+    public DbSet<ControleMataMata> ControleMataMatas { get; set; }
+    public DbSet<Rodada> Rodadas { get; set; }
+    public DbSet<SementeRodada> SementeRodadas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -22,6 +25,13 @@ public class CodefastContext : DbContext
             .Build();
 
         optionsBuilder.UseSqlServer(configuration.GetConnectionString("ServerConnection"));
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<ControleMataMata>()
+            .HasIndex(c => c.EquipeId)
+            .IsUnique();
     }
 
 }

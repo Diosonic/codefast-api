@@ -4,6 +4,7 @@ using Codefast.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Codefast.Migrations
 {
     [DbContext(typeof(CodefastContext))]
-    partial class CodefastContextModelSnapshot : ModelSnapshot
+    [Migration("20240505000626_Rodada")]
+    partial class Rodada
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,8 +71,7 @@ namespace Codefast.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EquipeId")
-                        .IsUnique();
+                    b.HasIndex("EquipeId");
 
                     b.ToTable("ControleMataMatas");
                 });
@@ -106,46 +108,6 @@ namespace Codefast.Migrations
                     b.ToTable("Equipes");
                 });
 
-            modelBuilder.Entity("Codefast.Models.Rodada", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TorneioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TorneioId");
-
-                    b.ToTable("Rodadas");
-                });
-
-            modelBuilder.Entity("Codefast.Models.SementeRodada", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("RodadaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RodadaId");
-
-                    b.ToTable("SementeRodadas");
-                });
-
             modelBuilder.Entity("Codefast.Models.Torneio", b =>
                 {
                     b.Property<int>("Id")
@@ -161,21 +123,6 @@ namespace Codefast.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Torneios");
-                });
-
-            modelBuilder.Entity("EquipeSementeRodada", b =>
-                {
-                    b.Property<int>("EquipesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SementeRodadasId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EquipesId", "SementeRodadasId");
-
-                    b.HasIndex("SementeRodadasId");
-
-                    b.ToTable("EquipeSementeRodada");
                 });
 
             modelBuilder.Entity("Codefast.Models.ControleEliminatoria", b =>
@@ -209,51 +156,9 @@ namespace Codefast.Migrations
                     b.Navigation("Torneio");
                 });
 
-            modelBuilder.Entity("Codefast.Models.Rodada", b =>
-                {
-                    b.HasOne("Codefast.Models.Torneio", "Torneio")
-                        .WithMany()
-                        .HasForeignKey("TorneioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Torneio");
-                });
-
-            modelBuilder.Entity("Codefast.Models.SementeRodada", b =>
-                {
-                    b.HasOne("Codefast.Models.Rodada", "Rodada")
-                        .WithMany("SementeRodadas")
-                        .HasForeignKey("RodadaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Rodada");
-                });
-
-            modelBuilder.Entity("EquipeSementeRodada", b =>
-                {
-                    b.HasOne("Codefast.Models.Equipe", null)
-                        .WithMany()
-                        .HasForeignKey("EquipesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Codefast.Models.SementeRodada", null)
-                        .WithMany()
-                        .HasForeignKey("SementeRodadasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Codefast.Models.Equipe", b =>
                 {
                     b.Navigation("ControleEliminatoria");
-                });
-
-            modelBuilder.Entity("Codefast.Models.Rodada", b =>
-                {
-                    b.Navigation("SementeRodadas");
                 });
 
             modelBuilder.Entity("Codefast.Models.Torneio", b =>
