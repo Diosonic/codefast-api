@@ -10,6 +10,11 @@ namespace Codefast.Models.DTOs.ControleEliminatoria
         public int Pontuacao { get; set; }
         public TimeSpan Tempo { get; set; }
 
-        public EquipeDTO Equipe { get; set; } = null!;
+        public EquipeDTO Equipe { get; set; }
+
+        public static implicit operator ControleEliminatoriaDTO(List<Models.ControleEliminatoria> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
