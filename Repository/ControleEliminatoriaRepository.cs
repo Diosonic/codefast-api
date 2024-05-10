@@ -61,6 +61,35 @@ namespace Codefast.Repository
                     .ToListAsync();
         }
 
+        public async Task<ControleEliminatoria> GetControleEliminatoriaByIdAsync(int id)
+        {
+            return await _context.ControleEliminatorias
+                .Include(c => c.Equipe)
+                .Where(e => e.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<ControleEliminatoriaDTO> GetControleEliminatoriaByIdAsyncList(int id)
+        {
+            return await _context.ControleEliminatorias
+                .Include(c => c.Equipe)
+                .Where(e => e.Id == id)
+                   .Select(eq => new ControleEliminatoriaDTO
+                   {
+                       Id = eq.Id,
+                       Tempo = eq.Tempo,
+                       Pontuacao = eq.Pontuacao,
+                       StatusValidacao = eq.StatusValidacao,
+                       IsDesclassificado = eq.IsDesclassificado,
+                       Equipe = new EquipeDTO
+                       {
+                           Id = eq.EquipeId,
+                           Nome = eq.Equipe.Nome,
+                       }
+                   })
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<ControleEliminatoria>> IniciarNovaRodada(int idTorneio)
         {
             var controleEliminatorias = await _context.ControleEliminatorias
@@ -98,9 +127,5 @@ namespace Codefast.Repository
             return controleEliminatorias;
         }
 
-        public Task<ControleEliminatoriaDTO> GetControleEliminatoriaByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

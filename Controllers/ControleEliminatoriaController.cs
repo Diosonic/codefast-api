@@ -23,7 +23,7 @@ namespace Codefast.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<ControleEliminatoriaDTO>>> GetByidAsync(int id)
         {
-            ControleEliminatoriaDTO equipeExistente = await _repository.GetControleEliminatoriaByIdAsync(id);
+            ControleEliminatoriaDTO equipeExistente = await _repository.GetControleEliminatoriaByIdAsyncList(id);
 
             return Ok(equipeExistente);
         }
@@ -51,12 +51,12 @@ namespace Codefast.Controllers
         }
 
         [HttpPut("{id}/equipes")]
-        public async Task<ActionResult<ControleEliminatoriaDTO>> AlteraStatusValidacao(int id, AtualizarControleEliminatoriaDTO request)
+        public async Task<ActionResult<ControleEliminatoria>> AlteraStatusValidacao(int id, AtualizarControleEliminatoriaDTO request)
         {
             if (request == null)
                 return BadRequest("Dados inválidos");
 
-            ControleEliminatoriaDTO equipeExistente = await _repository.GetControleEliminatoriaByIdAsync(id);
+            ControleEliminatoria equipeExistente = await _repository.GetControleEliminatoriaByIdAsync(id);
 
             if (equipeExistente == null)
                 return NotFound("Equipe não encontrada");
@@ -64,6 +64,8 @@ namespace Codefast.Controllers
             if (request.StatusValidacao != null)
                 equipeExistente.StatusValidacao = request.StatusValidacao;
                 equipeExistente.Tempo = request.Tempo;
+                equipeExistente.Pontuacao = request.Pontuacao;
+
 
             await _repository.UpdateAsync(equipeExistente);
 

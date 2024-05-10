@@ -7,7 +7,8 @@ namespace Codefast.Repository.Interfaces
     {
         Task<IEnumerable<ControleEliminatoriaDTO>> GetEquipesCredenciadas(int id);
         Task<IEnumerable<ControleEliminatoriaDTO>> GetEquipesCredenciadasEmValidacao(int id);
-        Task<ControleEliminatoriaDTO> GetControleEliminatoriaByIdAsync(int id);
+        Task<ControleEliminatoria> GetControleEliminatoriaByIdAsync(int id);
+        Task<ControleEliminatoriaDTO> GetControleEliminatoriaByIdAsyncList(int id);
         Task<IEnumerable<ControleEliminatoria>> IniciarNovaRodada(int idTorneio);
         Task<IEnumerable<ControleEliminatoria>> FinalizarRodadaAtual(int idTorneio);
 
