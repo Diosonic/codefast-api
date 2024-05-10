@@ -11,6 +11,7 @@ namespace Codefast.Models
         public int EquipeId { get; set; }
         [JsonIgnore]
         public Equipe Equipe { get; set; } = null!;
+        public bool IsDesclassificado { get; set; }
     }
 }
 
