@@ -1,5 +1,6 @@
 ﻿using Codefast.Context;
 using Codefast.Models;
+using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Models.DTOs.ControleMataMata;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
@@ -47,5 +48,31 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
                 }
             })
             .ToListAsync();
+    }
+    public async Task<IEnumerable<ControleMataMataDTO>> GetControleMataMataEmValidacaoAsync(int id)
+    {
+        return await _context.ControleMataMatas
+                .Where(eq => eq.Equipe.TorneioId == id && !eq.Equipe.IsDesclassificado)
+                .Select(eq => new ControleMataMataDTO
+                {
+                    Id = eq.Id,
+                    StatusValidacao = eq.StatusValidacao,
+
+                    Equipe = new ControleMataMataEquipeDTO
+                    {
+                        Id = eq.EquipeId,
+                        Nome = eq.Equipe.Nome,
+                        IsDesclassificado = eq.Equipe.IsDesclassificado
+                    }
+                }).Where(eq => eq.StatusValidacao == "Validando")
+                .ToListAsync();
+    }
+
+    public async Task<ControleMataMata> GetControleMataMataByIdAsync(int id)
+    {
+        return await _context.ControleMataMatas
+            .Include(c => c.Equipe)
+            .Where(c => c.Id == id)
+            .FirstOrDefaultAsync();
     }
 }

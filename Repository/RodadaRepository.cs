@@ -85,6 +85,7 @@ namespace Codefast.Repository
                             IsCredenciado = eq.IsCredenciado,
                             Nome = eq.Nome,
                             NomeParticipantes = eq.NomeParticipantes,
+                            ControleMataMata = eq.ControleMataMata
                         }).ToList()
                     }).ToList()
                 })

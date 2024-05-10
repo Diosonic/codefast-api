@@ -15,5 +15,7 @@ public class Equipe
     public Torneio? Torneio { get; set; }  
     public ControleEliminatoria? ControleEliminatoria { get; set; }
 
+    public ControleMataMata? ControleMataMata { get; set; }
+
     public virtual ICollection<SementeRodada> SementeRodadas { get; set; }
 }

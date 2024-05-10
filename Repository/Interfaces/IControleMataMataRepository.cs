@@ -8,4 +8,7 @@ public interface IControleMataMataRepository : IBaseRepository
 {
     Task<IEnumerable<EquipeDTO>> GetEquipesParaFaseMataMata(int id);
     Task<IEnumerable<ControleMataMataDTO>> GetControleMataMataAsync(int idTorneio);
+    Task<ControleMataMata> GetControleMataMataByIdAsync(int id);
+    Task<IEnumerable<ControleMataMataDTO>> GetControleMataMataEmValidacaoAsync(int idTorneio);
+
 }

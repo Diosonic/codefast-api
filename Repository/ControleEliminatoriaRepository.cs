@@ -51,7 +51,6 @@ namespace Codefast.Repository
                         Tempo = eq.Tempo,
                         Pontuacao = eq.Pontuacao,
                         StatusValidacao = eq.StatusValidacao,
-                        IsDesclassificado = eq.IsDesclassificado,
                         Equipe = new EquipeDTO
                         {
                             Id = eq.EquipeId,
