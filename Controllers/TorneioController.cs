@@ -20,9 +20,9 @@ namespace Codefast.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TorneioDTO>>> GetAll()
         {
-            //IEnumerable<TorneioDTO> torneios = await _repository.GetAllTorneiosAsync();
+            IEnumerable<TorneioDTO> torneios = await _repository.GetAllTorneiosAsync();
 
-            return Ok("rota criada");
+            return Ok(torneios);
         }
 
 
