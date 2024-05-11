@@ -17,6 +17,14 @@ namespace Codefast.Controllers
             _repository = repository;
         }
 
+        [HttpGet("Teste")]
+        public async Task<ActionResult<IEnumerable<TorneioDTO>>> GetAll()
+        {
+
+            return Ok("Rota criada");
+        }
+
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TorneioDTO>>> GetAll()
         {
