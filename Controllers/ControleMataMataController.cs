@@ -1,5 +1,4 @@
 ﻿using Codefast.Models;
-using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Models.DTOs.ControleMataMata;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
@@ -55,31 +54,6 @@ namespace Codefast.Controllers
                 return NotFound("Nenhuma equipe foi encontrada para essa etapa mata-mata");
 
             return Ok(controleMataMata);
-        }
-
-        [HttpPost("{idTorneio}/adicionar-controles")]
-        public async Task<ActionResult<IEnumerable<ControleMataMataDTO>>> Post(int idTorneio)
-        {
-            IEnumerable<EquipeDTO> equipes = await _repository.GetEquipesParaFaseMataMata(idTorneio);
-
-            if (equipes is null)
-                return BadRequest("Nenhuma equipe encontrada");
-
-            if (equipes.Count() != 8)
-                return BadRequest("Ops! Quantidade das equipes tem que ser igual a 8 para para começar a etapa de mata-mata.");
-
-            foreach (var equipe in equipes)
-            {
-                ControleMataMata controleMata = new ControleMataMata
-                {
-                    StatusValidacao = "Em espera",
-                    EquipeId = equipe.Id
-                };
-
-                await _repository.AddAsync(controleMata);
-            }
-
-            return Ok(equipes);
         }
 
         [HttpPut("{id}/alterar-status-validacao")]

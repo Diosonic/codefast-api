@@ -38,6 +38,7 @@ namespace Codefast.Repository
 
                         }
                     })
+                    .OrderByDescending(eq => eq.Pontuacao)
                     .ToListAsync();
         }
 
@@ -79,7 +80,6 @@ namespace Codefast.Repository
                        Tempo = eq.Tempo,
                        Pontuacao = eq.Pontuacao,
                        StatusValidacao = eq.StatusValidacao,
-                       IsDesclassificado = eq.IsDesclassificado,
                        Equipe = new EquipeDTO
                        {
                            Id = eq.EquipeId,
@@ -117,6 +117,11 @@ namespace Codefast.Repository
 
             foreach (var controleEliminatoria in controleEliminatorias)
             {
+                if(controleEliminatoria.StatusValidacao == "Em progresso")
+                {
+                    controleEliminatoria.Pontuacao = controleEliminatoria.Pontuacao + 35;
+                }
+
                 controleEliminatoria.StatusValidacao = "Em espera";
 
                 _context.Entry(controleEliminatoria.Equipe).State = EntityState.Modified;
@@ -125,6 +130,52 @@ namespace Codefast.Repository
 
             return controleEliminatorias;
         }
+
+        public async Task<IEnumerable<ControleEliminatoria>> FinalizarEtapaEliminatoria(int idTorneio)
+        {
+            var controleEliminatorias = await _context.ControleEliminatorias
+                      .Include(e => e.Equipe)
+                      .Where(e => e.Equipe.TorneioId == idTorneio)
+                      .ToListAsync();
+
+            var classificados = await _context.ControleEliminatorias
+                      .Include(e => e.Equipe)
+                      .Where(e => e.Equipe.TorneioId == idTorneio)
+                      .OrderByDescending(e => e.Pontuacao)
+                      .Take(8)
+                      .ToListAsync();
+
+            foreach (var controleEliminatoria in controleEliminatorias)
+            {
+                bool estaClassificado = classificados.Any(c => c.EquipeId == controleEliminatoria.EquipeId);
+
+                if (!estaClassificado)
+                {
+                    controleEliminatoria.Equipe.IsDesclassificado = true;
+
+                    _context.Entry(controleEliminatoria.Equipe).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            foreach (var classificado in classificados)
+            {
+                ControleMataMata controleMata = new ControleMataMata
+                {
+                    StatusValidacao = "Em espera",
+                    EquipeId = classificado.EquipeId
+                };
+
+                _context.Add(controleMata);
+                await _context.SaveChangesAsync();
+            }
+
+            return controleEliminatorias;
+        }
+
+
+   
+
 
     }
 }

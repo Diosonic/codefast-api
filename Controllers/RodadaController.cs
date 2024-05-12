@@ -1,4 +1,5 @@
 ﻿using Codefast.Models;
+using Codefast.Repository;
 using Codefast.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace Codefast.Controllers
     public class RodadaController : ControllerBase
     {
         private readonly IRodadaRepository _repository;
+        private readonly IControleMataMataRepository _controleMataMataRepository;
 
-        public RodadaController(IRodadaRepository repository)
+        public RodadaController(IRodadaRepository repository, IControleMataMataRepository controleMataMataRepository)
         {
             _repository = repository;
+            _controleMataMataRepository = controleMataMataRepository;
         }
 
 
@@ -24,7 +27,13 @@ namespace Codefast.Controllers
             if (rodadasEmAndamento.Any())
                 return BadRequest("Já existe uma rodada em andamento.");
 
-            _repository.CriaRodadasEtapaMataMata(idTorneio);
+
+            //var equipes = _controleMataMataRepository.GetEquipesParaFaseMataMata
+
+
+
+
+
 
             return Ok("Rodadas criadas com sucesso.");
         }

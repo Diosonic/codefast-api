@@ -1,11 +1,7 @@
-﻿using Azure.Core;
-using Codefast.Models;
+﻿using Codefast.Models;
 using Codefast.Models.DTOs.ControleEliminatoria;
-using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGeneration.Utils;
-using System.Collections.Generic;
 
 namespace Codefast.Controllers
 {
@@ -63,9 +59,20 @@ namespace Codefast.Controllers
 
             if (request.StatusValidacao != null)
                 equipeExistente.StatusValidacao = request.StatusValidacao;
-                equipeExistente.Tempo = request.Tempo;
-                equipeExistente.Pontuacao = request.Pontuacao;
 
+            if (request.Tempo != null)
+                equipeExistente.Tempo = request.Tempo;
+
+            if(request.StatusValidacao == "Aprovado")
+            {
+                equipeExistente.Pontuacao = request.Pontuacao;
+            }
+
+            //if (request.StatusValidacao == "Validando")
+            //{
+            //    equipeExistente.Pontuacao = request.Pontuacao;
+
+            //}
 
             await _repository.UpdateAsync(equipeExistente);
 
@@ -101,6 +108,22 @@ namespace Codefast.Controllers
 
             return Ok(controlesEliminatoriasAtualizados);
         }
+
+        [HttpPut("{idTorneio}/finalizarEtapaEliminatoria")]
+        public async Task<ActionResult<IEnumerable<ControleEliminatoria>>> finalizarEtapaEliminatoria(int idTorneio)
+        {
+            if (idTorneio == 0)
+                return BadRequest("Dados inválidos");
+
+            IEnumerable<ControleEliminatoria> controlesEliminatoriasAtualizados
+                = await _repository.FinalizarEtapaEliminatoria(idTorneio);
+
+            if (controlesEliminatoriasAtualizados == null)
+                return NotFound("Nenhuma equipe foi encontrada");
+
+            return Ok(controlesEliminatoriasAtualizados);
+        }
+
 
     }
 }
