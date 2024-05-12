@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:3000")
+                          policy.WithOrigins("https://codefast-uninassau.netlify.app")
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                       });
@@ -33,9 +33,12 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
-builder.Services.
-    AddDbContext<CodefastContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ServerConnection")));
+//builder.Services.
+//    AddDbContext<CodefastContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("ServerConnection")));
+
+builder.Services.AddDbContext<CodefastContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IBaseRepository, BaseRepository>();
 builder.Services.AddScoped<IEquipeRepository, EquipeRepository>();

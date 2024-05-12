@@ -17,21 +17,21 @@ public class CodefastContext : DbContext
     public DbSet<Rodada> Rodadas { get; set; }
     public DbSet<SementeRodada> SementeRodadas { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        IConfiguration configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", false, true)
-            .Build();
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    IConfiguration configuration = new ConfigurationBuilder()
+    //        .SetBasePath(Directory.GetCurrentDirectory())
+    //        .AddJsonFile("appsettings.json", false, true)
+    //        .Build();
 
-        optionsBuilder.UseSqlServer(configuration.GetConnectionString("ServerConnection"));
-    }
+    //    optionsBuilder.UseSqlServer(configuration.GetConnectionString("ServerConnection"));
+    //}
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<ControleMataMata>()
-            .HasIndex(c => c.EquipeId)
-            .IsUnique();
-    }
+    //protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //{
+    //    modelBuilder.Entity<ControleMataMata>()
+    //        .HasIndex(c => c.EquipeId)
+    //        .IsUnique();
+    //}
 
 }

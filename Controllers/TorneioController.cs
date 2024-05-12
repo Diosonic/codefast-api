@@ -17,6 +17,42 @@ namespace Codefast.Controllers
             _repository = repository;
         }
 
+        [HttpGet("teste")]
+        public async Task<ActionResult<IEnumerable<TorneioDTO>>> GetTorneioTeste()
+        {
+            var torneios = new List<TorneioDTO>
+            {
+                new TorneioDTO
+                {
+                    Id = 1,
+                    Titulo = "Torneio de Exemplo",
+                    Equipes = new List<EquipeDTO>
+                    {
+                        new EquipeDTO
+                        {
+                            Id = 1,
+                            TituloTorneio = "Torneio de Exemplo",
+                            Nome = "Equipe 1",
+                            IsDesclassificado = false,
+                            NomeParticipantes = "João, Maria",
+                            IsCredenciado = true
+                        },
+                        new EquipeDTO
+                        {
+                            Id = 2,
+                            TituloTorneio = "Torneio de Exemplo",
+                            Nome = "Equipe 2",
+                            IsDesclassificado = false,
+                            NomeParticipantes = "Pedro, Ana",
+                            IsCredenciado = false
+                        }
+                    }
+                }
+            };
+
+            return Ok(torneios);
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TorneioDTO>>> GetAll()
         {
@@ -42,7 +78,7 @@ namespace Codefast.Controllers
         {
             IEnumerable<EquipeDTO> equipes = await _repository.GetAllEquipesTorneioAsync(id);
 
-            if(equipes == null)
+            if (equipes == null)
             {
                 return NotFound("Nenhuma equipe foi encontrada para esse torneio");
             }
@@ -77,7 +113,7 @@ namespace Codefast.Controllers
             if (torneioExistente == null)
                 return NotFound("Torneio não encontrado");
 
-            if(request.Titulo != null)
+            if (request.Titulo != null)
             {
                 torneioExistente.Titulo = request.Titulo;
             }
