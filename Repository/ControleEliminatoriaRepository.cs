@@ -1,5 +1,4 @@
 ﻿using Codefast.Context;
-using Codefast.Migrations;
 using Codefast.Models;
 using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Models.DTOs.Equipe;

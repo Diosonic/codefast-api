@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Codefast.Models;
+﻿using Codefast.Models;
 using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
