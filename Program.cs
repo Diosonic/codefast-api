@@ -14,8 +14,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("https://codefast-uninassau.netlify.app")
-                            .AllowAnyMethod()
+                          //policy.WithOrigins("https://codefast-uninassau.netlify.app")
+                            policy.WithOrigins("http://localhost:3000")
+
+                          .AllowAnyMethod()
                             .AllowAnyHeader();
                       });
 });
@@ -33,7 +35,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
-//builder.Services.
+//builder.Services. 
 //    AddDbContext<CodefastContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("ServerConnection")));
 

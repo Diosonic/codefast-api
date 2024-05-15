@@ -3,9 +3,7 @@ using Codefast.Models;
 using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol.Core.Types;
 using ControleEliminatoria = Codefast.Models.ControleEliminatoria;
 
 namespace Codefast.Repository
@@ -161,13 +159,64 @@ namespace Codefast.Repository
             {
                 ControleMataMata controleMata = new ControleMataMata
                 {
-                    StatusValidacao = "Em espera",
+                    StatusValidacao = "Em progresso",
                     EquipeId = classificado.EquipeId
                 };
 
                 _context.Add(controleMata);
                 await _context.SaveChangesAsync();
             }
+
+
+            for (int i = 1; i < 4; i++)
+            {
+                Rodada rodada = new Rodada
+                {
+                    Titulo = i + "ª Rodada",
+                    TorneioId = idTorneio,
+                    SementeRodadas = new List<SementeRodada>(),
+                };
+
+                if (i == 1)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        rodada.SementeRodadas.Add(new SementeRodada
+                        {
+                            Equipes = []
+                        });
+
+                    }
+                }
+
+                if (i == 2)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        rodada.SementeRodadas.Add(new SementeRodada
+                        {
+                            Equipes = []
+                        });
+
+                    }
+                }
+
+                if (i == 3)
+                {
+                    for (int j = 0; j < 1; j++)
+                    {
+                        rodada.SementeRodadas.Add(new SementeRodada
+                        {
+                            Equipes = []
+                        });
+                    }
+                }
+
+
+                _context.Add(rodada);
+                await _context.SaveChangesAsync();
+            }
+
 
             return controleEliminatorias;
         }

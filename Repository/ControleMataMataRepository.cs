@@ -1,6 +1,5 @@
 ﻿using Codefast.Context;
 using Codefast.Models;
-using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Models.DTOs.ControleMataMata;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
@@ -34,7 +33,7 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
     public async Task<IEnumerable<ControleMataMataDTO>> GetControleMataMataAsync(int idTorneio)
     {
         return await _context.ControleMataMatas
-            .Where(c => c.Equipe.TorneioId == idTorneio)
+            .Where(c => c.Equipe.TorneioId == idTorneio && !c.Equipe.IsDesclassificado)
             .Select(eq => new ControleMataMataDTO
             {
                 Id = eq.Id,
@@ -74,5 +73,26 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
             .Include(c => c.Equipe)
             .Where(c => c.Id == id)
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<SementeRodada> PreparaEtapaMataMata(int equipeId, int sementeRodadaId)
+    {
+        var equipe = await _context.Equipes
+            .Include(e => e.SementeRodadas)
+            .FirstOrDefaultAsync(e => e.Id == equipeId);
+
+        var sementeRodada = await _context.SementeRodadas
+        .FindAsync(sementeRodadaId);
+
+        equipe.SementeRodadas.Add(sementeRodada);
+        await _context.SaveChangesAsync();
+
+        return sementeRodada;
+
+    }
+
+    public async Task<SementeRodada> DesclassificaEquipeAsync(int id)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -2,6 +2,7 @@
 using Codefast.Models.DTOs.ControleEliminatoria;
 using Codefast.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Codefast.Controllers
 {
@@ -66,13 +67,7 @@ namespace Codefast.Controllers
             if(request.StatusValidacao == "Aprovado")
             {
                 equipeExistente.Pontuacao = request.Pontuacao;
-            }
-
-            //if (request.StatusValidacao == "Validando")
-            //{
-            //    equipeExistente.Pontuacao = request.Pontuacao;
-
-            //}
+            };
 
             await _repository.UpdateAsync(equipeExistente);
 
@@ -110,7 +105,7 @@ namespace Codefast.Controllers
         }
 
         [HttpPut("{idTorneio}/finalizarEtapaEliminatoria")]
-        public async Task<ActionResult<IEnumerable<ControleEliminatoria>>> finalizarEtapaEliminatoria(int idTorneio)
+        public async Task<ActionResult<IEnumerable<ControleEliminatoria>>> FinalizarEtapaEliminatoria(int idTorneio)
         {
             if (idTorneio == 0)
                 return BadRequest("Dados inválidos");

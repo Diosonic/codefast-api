@@ -12,6 +12,5 @@ namespace Codefast.Repository.Interfaces
         Task<IEnumerable<ControleEliminatoria>> IniciarNovaRodada(int idTorneio);
         Task<IEnumerable<ControleEliminatoria>> FinalizarRodadaAtual(int idTorneio);
         Task<IEnumerable<ControleEliminatoria>> FinalizarEtapaEliminatoria(int idTorneio);
-
     }
 }

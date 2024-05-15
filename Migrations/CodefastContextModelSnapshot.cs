@@ -26,12 +26,6 @@ namespace Codefast.Migrations
                     b.Property<int>("EquipeId")
                         .HasColumnType("INTEGER");
 
-<<<<<<< HEAD
-=======
-                    b.Property<bool>("IsDesclassificado")
-                        .HasColumnType("INTEGER");
-
->>>>>>> c1ea892abcce8ac41e4ccaa238bc4d399afeb268
                     b.Property<int>("Pontuacao")
                         .HasColumnType("INTEGER");
 

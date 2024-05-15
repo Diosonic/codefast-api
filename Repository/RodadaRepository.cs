@@ -14,59 +14,6 @@ namespace Codefast.Repository
             _context = context;
         }
 
-        public void CriaRodadasEtapaMataMata(int idTorneio)
-        {
-
-            for (int i = 1; i < 4; i++)
-            {
-                Rodada rodada = new Rodada
-                {
-                    Titulo = i + "ª Rodada",
-                    TorneioId = idTorneio,
-                    SementeRodadas = new List<SementeRodada>(),
-                };
-
-                if (i == 1)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        rodada.SementeRodadas.Add(new SementeRodada
-                        {
-                            Equipes = []
-                        });
-
-                    }
-                }
-
-                if (i == 2)
-                {
-                    for (int j = 0; j < 2; j++)
-                    {
-                        rodada.SementeRodadas.Add(new SementeRodada
-                        {
-                            Equipes = []
-                        });
-
-                    }
-                }
-
-                if (i == 3)
-                {
-                    for (int j = 0; j < 1; j++)
-                    {
-                        rodada.SementeRodadas.Add(new SementeRodada
-                        {
-                            Equipes = []
-                        });
-                    }
-                }
-
-                _context.Add(rodada);
-                _context.SaveChanges();
-            }
-        }
-
-
         public async Task<IEnumerable<Rodada>> SelecionaRodadaEmAndamento(int idTorneio)
         {
             return await _context.Rodadas
@@ -84,6 +31,7 @@ namespace Codefast.Repository
                             Id = eq.Id,
                             IsCredenciado = eq.IsCredenciado,
                             Nome = eq.Nome,
+                            IsDesclassificado = eq.IsDesclassificado,
                             NomeParticipantes = eq.NomeParticipantes,
                             ControleMataMata = eq.ControleMataMata
                         }).ToList()

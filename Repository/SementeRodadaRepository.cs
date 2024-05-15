@@ -1,6 +1,7 @@
 ﻿using Codefast.Context;
 using Codefast.Models;
 using Codefast.Models.DTOs.ControleMataMata;
+using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,13 @@ namespace Codefast.Repository
             _context = context;
         }
 
-        public async Task<SementeRodada> GetSementeRodadaByIdAsync(int id, AdicionarChavesDTO request)
+
+        public async Task<IEnumerable<SementeRodada>> GetAllSementeRodadaAsync()
+        {
+            return await _context.SementeRodadas.ToListAsync();
+        }
+
+        public async Task<SementeRodada> PostSementeRodadaByIdAsync(int id, AdicionarChavesDTO request)
         {
             var equipe = await _context.Equipes
                 .Include(e => e.SementeRodadas)
@@ -23,7 +30,7 @@ namespace Codefast.Repository
 
             if (equipe == null)
                 return null;
-            
+
             var sementeRodada = await _context.SementeRodadas
                 .FindAsync(request.SementeRodadaId);
 
@@ -35,5 +42,7 @@ namespace Codefast.Repository
 
             return sementeRodada;
         }
+        
+
     }
 }
