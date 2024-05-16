@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           //policy.WithOrigins("https://codefast-uninassau.netlify.app")
-                            policy.WithOrigins("http://localhost:3000")
+                            policy.WithOrigins("http://localhost:3000", "http://localhost:54253", "http://localhost:52573", "http://192.168.0.15")
 
                           .AllowAnyMethod()
                             .AllowAnyHeader();
