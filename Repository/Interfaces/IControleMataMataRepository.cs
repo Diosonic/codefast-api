@@ -11,6 +11,5 @@ public interface IControleMataMataRepository : IBaseRepository
     Task<ControleMataMata> GetControleMataMataByIdAsync(int id);
     Task<IEnumerable<ControleMataMataDTO>> GetControleMataMataEmValidacaoAsync(int idTorneio);
     Task<SementeRodada> PreparaEtapaMataMata(int equipeId, int sementeRodadaId);
-    Task<SementeRodada> DesclassificaEquipeAsync(int id);
-
+    Task<IEnumerable<ControleMataMata>> GetDisputaTerceiroLugarAsync(int id);
 }

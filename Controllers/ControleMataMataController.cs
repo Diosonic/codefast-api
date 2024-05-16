@@ -3,7 +3,9 @@ using Codefast.Models.DTOs.ControleMataMata;
 using Codefast.Repository;
 using Codefast.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
+using System.Linq;
 
 namespace Codefast.Controllers
 {
@@ -88,6 +90,22 @@ namespace Codefast.Controllers
             return Ok(controleExistente);
         }
 
+        [HttpPut("{id}/disputar-terceiro-lugar")]
+        public async Task<ActionResult<ControleMataMata>> DisputaTerceiroLugar(int id)
+        {
+            ControleMataMata controleExistente = await _repository.GetControleMataMataByIdAsync(id);
+
+            if (controleExistente == null)
+                return NotFound("Controle da equipe não encontrado");
+
+            controleExistente.DisputaTerceiroLugar = true;
+            controleExistente.Equipe.IsDesclassificado = false;
+
+            await _repository.UpdateAsync(controleExistente);
+
+            return Ok(controleExistente);
+        }
+
 
         [HttpPost("{idTorneio}/preparar-etapa-mata-mata")]
         public async Task<ActionResult<List<ControleMataMataDTO>>> PreparaEtapaMataMata(int idTorneio)
@@ -99,8 +117,25 @@ namespace Codefast.Controllers
                         .Select(grupo => grupo.Select(x => x.Equipe).ToList())
                         .ToList();
 
-
             var sementeRodadas = await _sementeRodadaRepository.GetAllSementeRodadaAsync();
+
+            if (grupos.Count() == 1)
+            {
+
+                Rodada rodada = new Rodada
+                {
+                    Titulo = "Disputa terceiro lugar",
+                    TorneioId = idTorneio,
+                    SementeRodadas = new List<SementeRodada>(),
+                };
+
+                rodada.SementeRodadas.Add(new SementeRodada
+                {
+                    Equipes = []
+                });
+
+                await _repository.AddAsync(rodada);
+            }
 
             foreach (var item in controleMataMata)
             {
@@ -110,6 +145,7 @@ namespace Codefast.Controllers
 
                 if (grupos.Count() == 4)
                 {
+
                     gruposPorRodadaId = gruposPorRodadaId.Take(1);
 
                 }
@@ -149,6 +185,26 @@ namespace Codefast.Controllers
 
             return Ok(sementeRodadas);
         }
+
+        [HttpPost("{idTorneio}/preparar-disputa-terceiro-lugar")]
+        public async Task<ActionResult<List<ControleMataMataDTO>>> PreparaDisputaTerceiroLugar(int idTorneio)
+        {
+            var novoTesteSementeRodadas = await _sementeRodadaRepository.GetAllSementeRodadaAsync();
+
+            var disputaPorTerceiro = novoTesteSementeRodadas.Last();
+
+            IEnumerable<ControleMataMata> DisputaTerceiroLugar = await _repository.GetDisputaTerceiroLugarAsync(idTorneio);
+            var disputaTerceiroLugarList = DisputaTerceiroLugar.ToList();
+
+            var teste1 = disputaTerceiroLugarList[0].Equipe.Id;
+            var teste2 = disputaTerceiroLugarList[1].Equipe.Id;
+
+            await _repository.PreparaEtapaMataMata(teste1, disputaPorTerceiro.Id);
+            await _repository.PreparaEtapaMataMata(teste2, disputaPorTerceiro.Id);
+
+            return Ok("disputa criada");
+        }
+
 
 
     }

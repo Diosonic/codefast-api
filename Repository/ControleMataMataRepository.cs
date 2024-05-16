@@ -43,7 +43,8 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
                 {
                     Id = eq.EquipeId,
                     Nome = eq.Equipe.Nome,
-                    IsDesclassificado = eq.Equipe.IsDesclassificado
+                    IsDesclassificado = eq.Equipe.IsDesclassificado,
+                   
                 }
             })
             .ToListAsync();
@@ -91,8 +92,23 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
 
     }
 
-    public async Task<SementeRodada> DesclassificaEquipeAsync(int id)
+    public async Task<IEnumerable<ControleMataMata>> GetDisputaTerceiroLugarAsync(int id)
     {
-        throw new NotImplementedException();
-    }
+        return await _context.ControleMataMatas
+            .Include(c => c.Equipe)
+            .Where(c => c.Equipe.TorneioId == id && c.DisputaTerceiroLugar)
+            .Select(eq => new ControleMataMata
+            {
+                Id = eq.Id,
+                StatusValidacao = eq.StatusValidacao,
+                DisputaTerceiroLugar = eq.DisputaTerceiroLugar, 
+                Equipe = new Equipe
+                {
+                    Id = eq.EquipeId,
+                    Nome = eq.Equipe.Nome,
+                    IsDesclassificado = eq.Equipe.IsDesclassificado
+                }
+            })
+            .ToListAsync();
+}
 }
