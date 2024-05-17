@@ -117,6 +117,8 @@ namespace Codefast.Controllers
                         .Select(grupo => grupo.Select(x => x.Equipe).ToList())
                         .ToList();
 
+            await _repository.ZeraStatusValidacao(controleMataMata);
+
             var sementeRodadas = await _sementeRodadaRepository.GetAllSementeRodadaAsync();
 
             if (grupos.Count() == 1)
@@ -196,13 +198,16 @@ namespace Codefast.Controllers
             IEnumerable<ControleMataMata> DisputaTerceiroLugar = await _repository.GetDisputaTerceiroLugarAsync(idTorneio);
             var disputaTerceiroLugarList = DisputaTerceiroLugar.ToList();
 
-            var teste1 = disputaTerceiroLugarList[0].Equipe.Id;
-            var teste2 = disputaTerceiroLugarList[1].Equipe.Id;
+            var selecionaPrimeiro = disputaTerceiroLugarList[0].Equipe.Id;
+            var selecionaSegundo = disputaTerceiroLugarList[1].Equipe.Id;
 
-            await _repository.PreparaEtapaMataMata(teste1, disputaPorTerceiro.Id);
-            await _repository.PreparaEtapaMataMata(teste2, disputaPorTerceiro.Id);
+            await _repository.ReclassificaEquipeTerceiroLugar(DisputaTerceiroLugar);
 
-            return Ok("disputa criada");
+            await _repository.PreparaEtapaMataMata(selecionaPrimeiro, disputaPorTerceiro.Id);
+            await _repository.PreparaEtapaMataMata(selecionaSegundo, disputaPorTerceiro.Id);
+
+
+            return Ok(DisputaTerceiroLugar);
         }
 
 

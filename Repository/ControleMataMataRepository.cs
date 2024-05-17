@@ -3,7 +3,9 @@ using Codefast.Models;
 using Codefast.Models.DTOs.ControleMataMata;
 using Codefast.Models.DTOs.Equipe;
 using Codefast.Repository.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Core.Types;
 
 namespace Codefast.Repository;
 
@@ -76,6 +78,30 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
             .FirstOrDefaultAsync();
     }
 
+    public async Task ZeraStatusValidacao(IEnumerable<ControleMataMataDTO> controleMataMata)
+    {
+        foreach (var controleMataMataItem in controleMataMata)
+        {
+            controleMataMataItem.StatusValidacao = "Em progresso";
+
+        }
+
+
+        await _context.SaveChangesAsync();
+    }
+
+    //public async Task ReclassificaEquipeTerceiroLugar(IEnumerable<ControleMataMata> controleMataMata)
+    //{
+    //    foreach (var controleMataMataItem in controleMataMata)
+    //    {
+    //        controleMataMataItem.Equipe.IsDesclassificado = false;
+
+    //    }
+
+
+    //    await _context.SaveChangesAsync();
+    //}
+
     public async Task<SementeRodada> PreparaEtapaMataMata(int equipeId, int sementeRodadaId)
     {
         var equipe = await _context.Equipes
@@ -94,7 +120,7 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
 
     public async Task<IEnumerable<ControleMataMata>> GetDisputaTerceiroLugarAsync(int id)
     {
-        return await _context.ControleMataMatas
+        var controleMataMatas =  await _context.ControleMataMatas
             .Include(c => c.Equipe)
             .Where(c => c.Equipe.TorneioId == id && c.DisputaTerceiroLugar)
             .Select(eq => new ControleMataMata
@@ -110,5 +136,8 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
                 }
             })
             .ToListAsync();
-}
+
+        return controleMataMatas;
+    }
+
 }
