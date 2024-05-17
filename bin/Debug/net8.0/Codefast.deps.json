@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "Codefast/1.0.0": {
         "dependencies": {
+          "Microsoft.Data.Sqlite.Core": "8.0.5",
           "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.EntityFrameworkCore.Sqlite": "8.0.4",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.4",
@@ -1020,14 +1021,14 @@
           }
         }
       },
-      "Microsoft.Data.Sqlite.Core/8.0.4": {
+      "Microsoft.Data.Sqlite.Core/8.0.5": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.1.6"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Data.Sqlite.dll": {
-            "assemblyVersion": "8.0.4.0",
-            "fileVersion": "8.0.424.16902"
+            "assemblyVersion": "8.0.5.0",
+            "fileVersion": "8.0.524.21704"
           }
         }
       },
@@ -1113,7 +1114,7 @@
       },
       "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.4": {
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "8.0.4",
+          "Microsoft.Data.Sqlite.Core": "8.0.5",
           "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
           "Microsoft.Extensions.DependencyModel": "8.0.0"
         },
@@ -2249,12 +2250,12 @@
       "path": "microsoft.codeanalysis.workspaces.common/4.8.0",
       "hashPath": "microsoft.codeanalysis.workspaces.common.4.8.0.nupkg.sha512"
     },
-    "Microsoft.Data.Sqlite.Core/8.0.4": {
+    "Microsoft.Data.Sqlite.Core/8.0.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-x5FE5m1h31UIDEk0j3r38HtYvsa0fxd5jXzvE/SARI7LecXt/jm4z2SUl6TEoJGQOo9Ow2wg3a0MU2E1TVVAdA==",
-      "path": "microsoft.data.sqlite.core/8.0.4",
-      "hashPath": "microsoft.data.sqlite.core.8.0.4.nupkg.sha512"
+      "sha512": "sha512-JMGBNGTPsrLM14j5gDG2r5/I1nbbQd1ZdgeUnF7uca8RHYin6wZpFtQNYYqOMUpSxJak55trXE9B8/X2X+pOXw==",
+      "path": "microsoft.data.sqlite.core/8.0.5",
+      "hashPath": "microsoft.data.sqlite.core.8.0.5.nupkg.sha512"
     },
     "Microsoft.DiaSymReader/2.0.0": {
       "type": "package",
