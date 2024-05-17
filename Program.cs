@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("https://codefast-uninassau.netlify.app")
+                          policy.WithOrigins("https://codefast-uninassau.netlify.app", "http://192.168.0.17")
                           .AllowAnyMethod()
                           .AllowAnyHeader();
                       });
