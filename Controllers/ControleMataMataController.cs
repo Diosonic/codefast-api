@@ -201,7 +201,7 @@ namespace Codefast.Controllers
             var selecionaPrimeiro = disputaTerceiroLugarList[0].Equipe.Id;
             var selecionaSegundo = disputaTerceiroLugarList[1].Equipe.Id;
 
-            //await _repository.ReclassificaEquipeTerceiroLugar(DisputaTerceiroLugar);
+            await _repository.ReclassificaEquipeTerceiroLugar(DisputaTerceiroLugar);
 
             await _repository.PreparaEtapaMataMata(selecionaPrimeiro, disputaPorTerceiro.Id);
             await _repository.PreparaEtapaMataMata(selecionaSegundo, disputaPorTerceiro.Id);

@@ -90,17 +90,17 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
         await _context.SaveChangesAsync();
     }
 
-    //public async Task ReclassificaEquipeTerceiroLugar(IEnumerable<ControleMataMata> controleMataMata)
-    //{
-    //    foreach (var controleMataMataItem in controleMataMata)
-    //    {
-    //        controleMataMataItem.Equipe.IsDesclassificado = false;
+    public async Task ReclassificaEquipeTerceiroLugar(IEnumerable<ControleMataMata> controleMataMata)
+    {
+        foreach (var controleMataMataItem in controleMataMata)
+        {
+            controleMataMataItem.Equipe.IsDesclassificado = false;
 
-    //    }
+        }
 
 
-    //    await _context.SaveChangesAsync();
-    //}
+        await _context.SaveChangesAsync();
+    }
 
     public async Task<SementeRodada> PreparaEtapaMataMata(int equipeId, int sementeRodadaId)
     {
