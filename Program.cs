@@ -14,11 +14,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          //policy.WithOrigins("https://codefast-uninassau.netlify.app")
-                            policy.WithOrigins("http://localhost:3000", "http://localhost:54253", "http://localhost:52573", "http://192.168.0.15")
-
+                          policy.WithOrigins("https://codefast-uninassau.netlify.app")
                           .AllowAnyMethod()
-                            .AllowAnyHeader();
+                          .AllowAnyHeader();
                       });
 });
 
