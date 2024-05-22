@@ -64,6 +64,7 @@ namespace Codefast.Controllers
             if (request.Tempo != null)
                 equipeExistente.Tempo = request.Tempo;
 
+
             if(request.StatusValidacao == "Aprovado")
             {
                 equipeExistente.Pontuacao = request.Pontuacao;
