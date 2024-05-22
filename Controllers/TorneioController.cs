@@ -133,6 +133,7 @@ namespace Codefast.Controllers
                 return NotFound("Controle da equipe não encontrado");
 
             torneioExistente.isTempoCorrendo = !torneioExistente.isTempoCorrendo;
+            torneioExistente.isNovaRodada = false;
 
             await _repository.UpdateAsync(torneioExistente);
 
@@ -148,7 +149,8 @@ namespace Codefast.Controllers
                 return NotFound("Controle da equipe não encontrado");
 
             torneioExistente.isTempoCorrendo = false;
-            torneioExistente.Tempo = new TimeSpan(0, 30, 0);
+            torneioExistente.isNovaRodada = true;
+            torneioExistente.Tempo = new TimeSpan(0, 40, 0);
 
             await _repository.UpdateAsync(torneioExistente);
 
