@@ -114,11 +114,6 @@ namespace Codefast.Repository
 
             foreach (var controleEliminatoria in controleEliminatorias)
             {
-                if(controleEliminatoria.StatusValidacao == "Em progresso")
-                {
-                    controleEliminatoria.Pontuacao = controleEliminatoria.Pontuacao + 35;
-                }
-
                 controleEliminatoria.StatusValidacao = "Em espera";
 
                 _context.Entry(controleEliminatoria.Equipe).State = EntityState.Modified;
