@@ -170,9 +170,28 @@ namespace Codefast.Repository
 
             for (int i = 1; i < 4; i++)
             {
+                string tituloRodada;
+
+                if (i == 1)
+                {
+                    tituloRodada = "Oitava de final";
+                } else if (i == 2)
+                {
+                    tituloRodada = "Quarta de final";
+                } else if (i == 3)
+                {
+                    tituloRodada = "Semifinal";
+                } else if (i == 4 )
+                {
+                    tituloRodada = "Final";
+                } else
+                {
+                    tituloRodada = " ";
+                }
+
                 Rodada rodada = new Rodada
                 {
-                    Titulo = i + "ª Rodada",
+                    Titulo = tituloRodada,
                     TorneioId = idTorneio,
                     SementeRodadas = new List<SementeRodada>(),
                 };

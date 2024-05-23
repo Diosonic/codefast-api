@@ -123,6 +123,38 @@ namespace Codefast.Controllers
             return Ok(torneioExistente);
         }
 
+
+        [HttpPut("{id}/altera-status-tempo")]
+        public async Task<ActionResult> AlteraStatusTempo(int id)
+        {
+            Torneio torneioExistente = await _repository.GetTorneioByIdAsync(id);
+
+            if (torneioExistente == null)
+                return NotFound("Controle da equipe não encontrado");
+
+            torneioExistente.isTempoCorrendo = !torneioExistente.isTempoCorrendo;
+
+            await _repository.UpdateAsync(torneioExistente);
+
+            return Ok(torneioExistente);
+        }
+
+        [HttpPut("{id}/resetar-status-tempo")]
+        public async Task<ActionResult> ResetaStatusTempo(int id)
+        {
+            Torneio torneioExistente = await _repository.GetTorneioByIdAsync(id);
+
+            if (torneioExistente == null)
+                return NotFound("Controle da equipe não encontrado");
+
+            torneioExistente.isTempoCorrendo = false;
+            torneioExistente.Tempo = new TimeSpan(0, 30, 0);
+
+            await _repository.UpdateAsync(torneioExistente);
+
+            return Ok(torneioExistente);
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
