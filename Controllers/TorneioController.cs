@@ -31,7 +31,7 @@ namespace Codefast.Controllers
                         new EquipeDTO
                         {
                             Id = 1,
-                            TituloTorneio = "Torneio de Exemplo",
+                            TituloTorneio = "Torneio de Exemplo 1",
                             Nome = "Equipe 1",
                             IsDesclassificado = false,
                             NomeParticipantes = "João, Maria",
