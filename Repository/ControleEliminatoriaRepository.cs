@@ -114,11 +114,6 @@ namespace Codefast.Repository
 
             foreach (var controleEliminatoria in controleEliminatorias)
             {
-                if(controleEliminatoria.StatusValidacao == "Em progresso")
-                {
-                    controleEliminatoria.Pontuacao = controleEliminatoria.Pontuacao + 35;
-                }
-
                 controleEliminatoria.StatusValidacao = "Em espera";
 
                 _context.Entry(controleEliminatoria.Equipe).State = EntityState.Modified;
@@ -139,8 +134,13 @@ namespace Codefast.Repository
                       .Include(e => e.Equipe)
                       .Where(e => e.Equipe.TorneioId == idTorneio)
                       .OrderByDescending(e => e.Pontuacao)
-                      .Take(8)
+                      .Take(16)
                       .ToListAsync();
+
+            if (classificados.Count != 16)
+            {
+                throw new Exception("Número de equipes classificadas diferente de 16.");
+            }
 
             foreach (var controleEliminatoria in controleEliminatorias)
             {
@@ -155,7 +155,16 @@ namespace Codefast.Repository
                 }
             }
 
-            foreach (var classificado in classificados)
+            var ordenados = new List<ControleEliminatoria>();
+
+            for (int i = 0; i < 8; i++)
+            {
+                ordenados.Add(classificados[i]);
+                ordenados.Add(classificados[15 - i]);
+            }
+
+
+            foreach (var classificado in ordenados)
             {
                 ControleMataMata controleMata = new ControleMataMata
                 {
@@ -168,23 +177,27 @@ namespace Codefast.Repository
             }
 
 
-            for (int i = 1; i < 4; i++)
+            for (int i = 1; i < 5; i++)
             {
                 string tituloRodada;
 
                 if (i == 1)
                 {
                     tituloRodada = "Oitava de final";
-                } else if (i == 2)
+                }
+                else if (i == 2)
                 {
                     tituloRodada = "Quarta de final";
-                } else if (i == 3)
+                }
+                else if (i == 3)
                 {
                     tituloRodada = "Semifinal";
-                } else if (i == 4 )
+                }
+                else if (i == 4)
                 {
                     tituloRodada = "Final";
-                } else
+                }
+                else
                 {
                     tituloRodada = " ";
                 }
@@ -198,7 +211,7 @@ namespace Codefast.Repository
 
                 if (i == 1)
                 {
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < 8; j++)
                     {
                         rodada.SementeRodadas.Add(new SementeRodada
                         {
@@ -210,7 +223,7 @@ namespace Codefast.Repository
 
                 if (i == 2)
                 {
-                    for (int j = 0; j < 2; j++)
+                    for (int j = 0; j < 4; j++)
                     {
                         rodada.SementeRodadas.Add(new SementeRodada
                         {
@@ -222,6 +235,17 @@ namespace Codefast.Repository
 
                 if (i == 3)
                 {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        rodada.SementeRodadas.Add(new SementeRodada
+                        {
+                            Equipes = []
+                        });
+                    }
+                }
+
+                if (i == 4)
+                {
                     for (int j = 0; j < 1; j++)
                     {
                         rodada.SementeRodadas.Add(new SementeRodada
@@ -231,7 +255,6 @@ namespace Codefast.Repository
                     }
                 }
 
-
                 _context.Add(rodada);
                 await _context.SaveChangesAsync();
             }
@@ -239,10 +262,5 @@ namespace Codefast.Repository
 
             return controleEliminatorias;
         }
-
-
-   
-
-
     }
 }

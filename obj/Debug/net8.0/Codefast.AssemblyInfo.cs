@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Codefast")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d963b0e31ff225a86d004e2b9e7b1d91ba5a7c81")]
 [assembly: System.Reflection.AssemblyProductAttribute("Codefast")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Codefast")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

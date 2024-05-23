@@ -1,31 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Yuri.Peixinho\\Desktop\\codefast\\codefastII-api\\Codefast.csproj": {}
+    "C:\\Users\\peixi\\OneDrive\\Desktop\\Professional\\Domains\\byp\\codefast-api\\Codefast.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Yuri.Peixinho\\Desktop\\codefast\\codefastII-api\\Codefast.csproj": {
+    "C:\\Users\\peixi\\OneDrive\\Desktop\\Professional\\Domains\\byp\\codefast-api\\Codefast.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yuri.Peixinho\\Desktop\\codefast\\codefastII-api\\Codefast.csproj",
+        "projectUniqueName": "C:\\Users\\peixi\\OneDrive\\Desktop\\Professional\\Domains\\byp\\codefast-api\\Codefast.csproj",
         "projectName": "Codefast",
-        "projectPath": "C:\\Users\\Yuri.Peixinho\\Desktop\\codefast\\codefastII-api\\Codefast.csproj",
-        "packagesPath": "C:\\Users\\Yuri.Peixinho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yuri.Peixinho\\Desktop\\codefast\\codefastII-api\\obj\\",
+        "projectPath": "C:\\Users\\peixi\\OneDrive\\Desktop\\Professional\\Domains\\byp\\codefast-api\\Codefast.csproj",
+        "packagesPath": "C:\\Users\\peixi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\peixi\\OneDrive\\Desktop\\Professional\\Domains\\byp\\codefast-api\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Yuri.Peixinho\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\peixi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -90,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.105/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

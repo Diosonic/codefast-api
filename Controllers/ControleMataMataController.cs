@@ -145,19 +145,23 @@ namespace Codefast.Controllers
                         .GroupBy(sementeRodada => sementeRodada.RodadaId)
                         .Where(grupo => grupo.Count() >= 1);
 
-                if (grupos.Count() == 4)
+                if (grupos.Count() == 8)
                 {
 
                     gruposPorRodadaId = gruposPorRodadaId.Take(1);
 
                 }
-                else if (grupos.Count() == 2)
+                else if (grupos.Count() == 4)
                 {
                     gruposPorRodadaId = gruposPorRodadaId.Skip(1).Take(1);
                 }
-                else if (grupos.Count() == 1)
+                else if (grupos.Count() == 2)
                 {
                     gruposPorRodadaId = gruposPorRodadaId.Skip(2).Take(1);
+                }
+                else if (grupos.Count() == 1)
+                {
+                    gruposPorRodadaId = gruposPorRodadaId.Skip(3).Take(1);
                 }
 
                 // selecionar individualmente todas as etapas e fazer verificação pra processar.
@@ -201,10 +205,14 @@ namespace Codefast.Controllers
             var selecionaPrimeiro = disputaTerceiroLugarList[0].Equipe.Id;
             var selecionaSegundo = disputaTerceiroLugarList[1].Equipe.Id;
 
-            await _repository.ReclassificaEquipeTerceiroLugar(DisputaTerceiroLugar);
 
             await _repository.PreparaEtapaMataMata(selecionaPrimeiro, disputaPorTerceiro.Id);
             await _repository.PreparaEtapaMataMata(selecionaSegundo, disputaPorTerceiro.Id);
+
+
+            await _repository.ReclassificaEquipeTerceiroLugar(disputaTerceiroLugarList);
+
+
 
 
             return Ok(DisputaTerceiroLugar);

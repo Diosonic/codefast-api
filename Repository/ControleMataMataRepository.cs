@@ -36,6 +36,7 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
     {
         return await _context.ControleMataMatas
             .Where(c => c.Equipe.TorneioId == idTorneio && !c.Equipe.IsDesclassificado)
+            .OrderBy(c => c.Id)
             .Select(eq => new ControleMataMataDTO
             {
                 Id = eq.Id,
@@ -46,7 +47,7 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
                     Id = eq.EquipeId,
                     Nome = eq.Equipe.Nome,
                     IsDesclassificado = eq.Equipe.IsDesclassificado,
-                   
+
                 }
             })
             .ToListAsync();
@@ -82,10 +83,15 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
     {
         foreach (var controleMataMataItem in controleMataMata)
         {
-            controleMataMataItem.StatusValidacao = "Em progresso";
+            var entity = await _context.ControleMataMatas.FindAsync(controleMataMataItem.Id);
+
+            if (entity != null)
+            {
+                entity.StatusValidacao = "Em progresso";
+                _context.Entry(entity).State = EntityState.Modified;
+            }
 
         }
-
 
         await _context.SaveChangesAsync();
     }
@@ -94,10 +100,15 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
     {
         foreach (var controleMataMataItem in controleMataMata)
         {
-            controleMataMataItem.Equipe.IsDesclassificado = false;
+            var entity = await _context.ControleMataMatas.FindAsync(controleMataMataItem.Id);
+
+            if (entity != null)
+            {
+                entity.Equipe.IsDesclassificado = false;
+                _context.Entry(entity).State = EntityState.Modified;
+            }
 
         }
-
 
         await _context.SaveChangesAsync();
     }
@@ -120,14 +131,14 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
 
     public async Task<IEnumerable<ControleMataMata>> GetDisputaTerceiroLugarAsync(int id)
     {
-        var controleMataMatas =  await _context.ControleMataMatas
+        var controleMataMatas = await _context.ControleMataMatas
             .Include(c => c.Equipe)
             .Where(c => c.Equipe.TorneioId == id && c.DisputaTerceiroLugar)
             .Select(eq => new ControleMataMata
             {
                 Id = eq.Id,
                 StatusValidacao = eq.StatusValidacao,
-                DisputaTerceiroLugar = eq.DisputaTerceiroLugar, 
+                DisputaTerceiroLugar = eq.DisputaTerceiroLugar,
                 Equipe = new Equipe
                 {
                     Id = eq.EquipeId,
