@@ -69,11 +69,6 @@ namespace Codefast.Controllers
                 equipeExistente.Pontuacao = request.Pontuacao;
             };
 
-            if (request.StatusValidacao == "Declinado")
-            {
-                equipeExistente.Pontuacao = request.Pontuacao;
-            };
-
             await _repository.UpdateAsync(equipeExistente);
 
             return Ok(equipeExistente.StatusValidacao);
@@ -123,5 +118,7 @@ namespace Codefast.Controllers
 
             return Ok(controlesEliminatoriasAtualizados);
         }
+
+
     }
 }
