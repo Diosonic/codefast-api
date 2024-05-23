@@ -64,8 +64,12 @@ namespace Codefast.Controllers
             if (request.Tempo != null)
                 equipeExistente.Tempo = request.Tempo;
 
+            if (request.StatusValidacao == "Aprovado")
+            {
+                equipeExistente.Pontuacao = request.Pontuacao;
+            };
 
-            if(request.StatusValidacao == "Aprovado")
+            if (request.StatusValidacao == "Declinado")
             {
                 equipeExistente.Pontuacao = request.Pontuacao;
             };
@@ -97,7 +101,7 @@ namespace Codefast.Controllers
                 return BadRequest("Dados inválidos");
 
             IEnumerable<ControleEliminatoria> controlesEliminatoriasAtualizados
-                = await _repository.FinalizarRodadaAtual (idTorneio);
+                = await _repository.FinalizarRodadaAtual(idTorneio);
 
             if (controlesEliminatoriasAtualizados == null)
                 return NotFound("Nenhuma equipe foi encontrada");
@@ -119,7 +123,5 @@ namespace Codefast.Controllers
 
             return Ok(controlesEliminatoriasAtualizados);
         }
-
-
     }
 }
