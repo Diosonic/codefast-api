@@ -140,18 +140,9 @@ namespace Codefast.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<TimeSpan>("Tempo")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Titulo")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("isNovaRodada")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("isTempoCorrendo")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

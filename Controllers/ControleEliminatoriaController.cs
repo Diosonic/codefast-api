@@ -64,12 +64,8 @@ namespace Codefast.Controllers
             if (request.Tempo != null)
                 equipeExistente.Tempo = request.Tempo;
 
-            if(request.StatusValidacao == "Aprovado")
-            {
-                equipeExistente.Pontuacao = request.Pontuacao;
-            };
 
-            if (request.StatusValidacao == "Declinado")
+            if(request.StatusValidacao == "Aprovado")
             {
                 equipeExistente.Pontuacao = request.Pontuacao;
             };
@@ -123,5 +119,7 @@ namespace Codefast.Controllers
 
             return Ok(controlesEliminatoriasAtualizados);
         }
+
+
     }
 }

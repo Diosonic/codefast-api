@@ -36,7 +36,6 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
     {
         return await _context.ControleMataMatas
             .Where(c => c.Equipe.TorneioId == idTorneio && !c.Equipe.IsDesclassificado)
-            .OrderBy(c => c.Id)
             .Select(eq => new ControleMataMataDTO
             {
                 Id = eq.Id,
@@ -83,15 +82,10 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
     {
         foreach (var controleMataMataItem in controleMataMata)
         {
-            var entity = await _context.ControleMataMatas.FindAsync(controleMataMataItem.Id);
-           
-            if (entity != null)
-            {
-                entity.StatusValidacao = "Em progresso";
-                _context.Entry(entity).State = EntityState.Modified;
-            }
+            controleMataMataItem.StatusValidacao = "Em progresso";
 
         }
+
 
         await _context.SaveChangesAsync();
     }
@@ -100,15 +94,10 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
     {
         foreach (var controleMataMataItem in controleMataMata)
         {
-            var entity = await _context.ControleMataMatas.FindAsync(controleMataMataItem.Id);
-
-            if (entity != null)
-            {
-                entity.Equipe.IsDesclassificado = false;
-                _context.Entry(entity).State = EntityState.Modified;
-            }
+            controleMataMataItem.Equipe.IsDesclassificado = false;
 
         }
+
 
         await _context.SaveChangesAsync();
     }

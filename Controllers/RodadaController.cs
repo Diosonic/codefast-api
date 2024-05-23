@@ -27,6 +27,14 @@ namespace Codefast.Controllers
             if (rodadasEmAndamento.Any())
                 return BadRequest("Já existe uma rodada em andamento.");
 
+
+            //var equipes = _controleMataMataRepository.GetEquipesParaFaseMataMata
+
+
+
+
+
+
             return Ok("Rodadas criadas com sucesso.");
         }
 
