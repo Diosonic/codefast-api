@@ -202,6 +202,7 @@ namespace Codefast.Controllers
             IEnumerable<ControleMataMata> DisputaTerceiroLugar = await _repository.GetDisputaTerceiroLugarAsync(idTorneio);
             var disputaTerceiroLugarList = DisputaTerceiroLugar.ToList();
 
+
             var selecionaPrimeiro = disputaTerceiroLugarList[0].Equipe.Id;
             var selecionaSegundo = disputaTerceiroLugarList[1].Equipe.Id;
 
@@ -211,8 +212,6 @@ namespace Codefast.Controllers
 
 
             await _repository.ReclassificaEquipeTerceiroLugar(disputaTerceiroLugarList);
-
-
 
 
             return Ok(DisputaTerceiroLugar);

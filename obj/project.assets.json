@@ -7064,19 +7064,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\peixi\\.nuget\\packages\\": {}
+    "C:\\Users\\Yurip\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\peixi\\OneDrive\\Desktop\\Professional\\Domains\\byp\\codefast-api\\Codefast.csproj",
+      "projectUniqueName": "C:\\Users\\Yurip\\source\\repos\\Codefast\\Codefast.csproj",
       "projectName": "Codefast",
-      "projectPath": "C:\\Users\\peixi\\OneDrive\\Desktop\\Professional\\Domains\\byp\\codefast-api\\Codefast.csproj",
-      "packagesPath": "C:\\Users\\peixi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\peixi\\OneDrive\\Desktop\\Professional\\Domains\\byp\\codefast-api\\obj\\",
+      "projectPath": "C:\\Users\\Yurip\\source\\repos\\Codefast\\Codefast.csproj",
+      "packagesPath": "C:\\Users\\Yurip\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Yurip\\source\\repos\\Codefast\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\peixi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Yurip\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7096,6 +7096,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -7148,7 +7153,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

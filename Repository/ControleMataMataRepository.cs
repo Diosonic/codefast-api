@@ -95,7 +95,6 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
 
         await _context.SaveChangesAsync();
     }
-
     public async Task ReclassificaEquipeTerceiroLugar(IEnumerable<ControleMataMata> controleMataMata)
     {
         foreach (var controleMataMataItem in controleMataMata)
@@ -105,6 +104,7 @@ public class ControleMataMataRepository : BaseRepository, IControleMataMataRepos
             if (entity != null)
             {
                 entity.Equipe.IsDesclassificado = false;
+                entity.StatusValidacao = "Em progresso";
                 _context.Entry(entity).State = EntityState.Modified;
             }
 
